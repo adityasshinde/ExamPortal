@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
+import PageRoutes from './component/page-components/PageRoutes';
+import { auth } from './firebase';
+import { fetchAvlExams } from './API/exams';
+import { useDispatch } from 'react-redux';
+import { setAvailableExam } from './redux/examSlice';
+import { setUser } from './redux/testSlice';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const dispatch=useDispatch();
+  useEffect(() => {
+    auth.onAuthStateChanged(user=>{
+      if(user){
+      localStorage.setItem('token',user.accessToken);
+      const USER={
+        name:user.displayName,
+        email:user.email,
+        uid:user.uid
+      }
+      dispatch(setUser(USER));
+      }
+    });
+  
+  }, [])
+  
+  return <PageRoutes/>
 }
 
 export default App;
