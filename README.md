@@ -41,7 +41,7 @@ Deplyed Link: (https://examportal-1.web.app/)
 To access and interact with the portal, follow these steps:
 
 # Clone the repository:
-git clone https://github.com/yourusername/exam-portal.git /n
+git clone https://github.com/yourusername/exam-portal.git  
 cd exam-portal
 
 # Install dependencies:
